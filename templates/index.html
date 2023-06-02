@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro de Libros</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .btn-action {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Libros</h1>
+
+        <div class="form-container">
+            <h2>Agregar un nuevo libro</h2>
+            <form class="form" action="{{ url_for('add') }}" method="POST">
+                <div class="form-group">
+                    <label for="title">Título:</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="author">Autor:</label>
+                    <input type="text" class="form-control" id="author" name="author" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Agregar</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Listado de libros</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>
+                                <a href="{{ url_for('edit', id=row[0]) }}" class="btn btn-primary btn-sm btn-action">Editar</a>
+                                <a href="{{ url_for('delete', id=row[0]) }}" class="btn btn-danger btn-sm btn-action">Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
